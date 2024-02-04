@@ -25,26 +25,34 @@ public class Main {
                 continue;
             }
 
-            line = line.replaceAll("\\+", "");
+            if (line.charAt(0) == '/') {
+                System.out.println("Unknown command");
+                continue;
+            }
 
-            while (line.contains("  ") || line.contains("--")) {
+            while (line.contains("  ") || line.contains("--") || line.contains(" +")) {
+                line = line.replaceAll(" \\+", " ");
                 line = line.replaceAll(" {2}", " ");
                 line = line.replaceAll("--", "");
             }
 
             String[] splitLine = line.split(" ");
-            if (splitLine.length == 1) {
-                System.out.println(splitLine[0]);
-            } else {
-                int sum = getSum(splitLine);
-                System.out.println(sum);
+            try {
+                if (splitLine.length == 1) {
+                    System.out.println(Integer.parseInt(splitLine[0]));
+                } else {
+                    int sum = getSum(splitLine);
+                    System.out.println(sum);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid expression");
             }
         } while (true);
 
         System.out.println("Bye!");
     }
 
-    private static int getSum(String[] splitLine) {
+    private static int getSum(String[] splitLine) throws NumberFormatException {
         int sum = 0;
         boolean nextNegative = false;
         for (String integerString : splitLine) {

@@ -13,10 +13,8 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageData" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageData" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageRecordIndex" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageRecordIndex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart Calculator with Java/Count them all/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Smart Calculator with Java/Count them all/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Smart Calculator with Java/Add subtractions/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Smart Calculator with Java/Add subtractions/task-info.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Smart Calculator with Java/lesson-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Smart Calculator with Java/lesson-info.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Smart Calculator with Java/task/src/calculator/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Smart Calculator with Java/task/src/calculator/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Smart Calculator with Java/task/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/Smart Calculator with Java/task/test/Test.java" afterDir="false" />
@@ -62,6 +60,19 @@
   }
 }]]></component>
   <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="calculator.Main" />
+      <module name="Smart_Calculator_with_Java.Smart_Calculator_with_Java-task.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="calculator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Smart Calculator with Java" />
       <method v="2">
@@ -75,6 +86,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -90,6 +106,7 @@
       <option value="jdbc:h2:file:/Users/afp/IdeaProjects/Smart Calculator with Java/Smart Calculator with Java/2+2/db/db" />
       <option value="jdbc:h2:file:/Users/afp/IdeaProjects/Smart Calculator with Java/Smart Calculator with Java/Add subtractions/db/db" />
       <option value="jdbc:h2:file:/Users/afp/IdeaProjects/Smart Calculator with Java/Smart Calculator with Java/Count them all/db/db" />
+      <option value="jdbc:h2:file:/Users/afp/IdeaProjects/Smart Calculator with Java/Smart Calculator with Java/Error/db/db" />
     </taskDatabasesInitialized>
   </component>
   <component name="TaskManager">
@@ -99,7 +116,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1707051079210</updated>
-      <workItem from="1707051081670" duration="1390000" />
+      <workItem from="1707051081670" duration="1697000" />
     </task>
     <servers />
   </component>
