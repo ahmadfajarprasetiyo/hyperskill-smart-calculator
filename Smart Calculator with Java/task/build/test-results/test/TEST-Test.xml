@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Test" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-02-04T12:52:40" hostname="Ahmads-MacBook-Air.local" time="0.06">
+  <properties/>
+  <testcase name="start" classname="Test" time="0.06"/>
+  <system-out><![CDATA[?[1;31m
+Start test 1?[0m
+> 0 1
+?[1;31m
+Start test 2?[0m
+> 1 0
+?[1;31m
+Start test 3?[0m
+> 5 7
+?[1;31m
+Start test 4?[0m
+> 100 123
+?[1;31m
+Start test 5?[0m
+> -1 5
+?[1;31m
+Start test 6?[0m
+> 5 -2
+?[1;31m
+Start test 7?[0m
+> -300 -400
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
