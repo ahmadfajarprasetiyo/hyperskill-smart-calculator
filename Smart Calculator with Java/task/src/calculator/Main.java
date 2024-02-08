@@ -1,8 +1,6 @@
 package calculator;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -81,42 +79,73 @@ public class Main {
     }
 
     private static int getSum(String line, Map<String, Integer> mapVariable) throws NumberFormatException, InvalidIdentifier, NullPointerException {
-        while (line.contains("  ") || line.contains("--") || line.contains("++")) {
-            line = line.replaceAll("\\+\\+", "");
-            line = line.replaceAll(" {2}", " ");
-            line = line.replaceAll("--", "");
+        if (line.contains("//") || line.contains("**")) {
+            throw new NumberFormatException();
         }
 
-        String[] splitLine = line.split(" ");
-
-        if (splitLine.length == 1) {
-            return convertOneWordToInt(splitLine[0], mapVariable);
+        line = line.replaceAll("\\s+", "");
+        while ( line.contains("--") || line.contains("++")) {
+            line = line.replaceAll("\\+\\+", "+");
+            line = line.replaceAll("--", "+");
+            line = line.replaceAll("-\\+", "-");
+            line = line.replaceAll("\\+-", "-");
         }
 
-        int sum = 0;
-        boolean nextNegative = false;
-        for (String integerString : splitLine) {
-            if (integerString.equals("+")) {
-                continue;
-            }
+        String[] tokens = line.split("(?<=[-+*/()])|(?=[-+*/()])");
 
-            if (integerString.equals("-")) {
-                nextNegative = true;
-                continue;
-            }
 
-            if (nextNegative) {
-                sum = sum - convertOneWordToInt(integerString, mapVariable);
-                nextNegative = false;
+        // Stack to hold numbers and operators
+        Stack<Integer> numbers = new Stack<>();
+        Stack<Character> operators = new Stack<>();
+
+        // Operator precedence map
+        Map<Character, Integer> precedence = new HashMap<>();
+        precedence.put('+', 1);
+        precedence.put('-', 1);
+        precedence.put('*', 2);
+        precedence.put('/', 2);
+
+        if (tokens.length == 1) {
+            return convertOneWordToInt(tokens[0], mapVariable);
+        }
+
+        for (String token : tokens) {
+            if (token.equals("(")) {
+                operators.push('(');
+            } else if (token.equals(")")) {
+                while (!operators.isEmpty() && operators.peek() != '(') {
+                    evaluateOperation(numbers, operators);
+                }
+
+                if (operators.isEmpty()) {
+                    throw new NumberFormatException();
+                }
+                operators.pop();
+            } else if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")){
+                while (!operators.isEmpty() && !operators.peek().equals('(') && precedence.get(operators.peek()) >= precedence.get(token.charAt(0))) {
+                    evaluateOperation(numbers, operators);
+                }
+                operators.push(token.charAt(0));
             } else {
-                sum = sum + convertOneWordToInt(integerString, mapVariable);
+                numbers.push(convertOneWordToInt(token, mapVariable));
+            }
+        }
+
+        // Evaluate any remaining operators
+        while (!operators.isEmpty()) {
+            try {
+                evaluateOperation(numbers, operators);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException();
             }
 
         }
-        return sum;
+
+        // The result is the only number remaining on the numbers stack
+        return numbers.pop();
     }
 
-    private static int convertOneWordToInt(String word, Map<String, Integer> mapVariable)  throws NumberFormatException, InvalidIdentifier, NullPointerException {
+    private static int convertOneWordToInt(String word, Map<String, Integer> mapVariable)  throws InvalidIdentifier, NullPointerException, IllegalArgumentException {
         if (!isVariable(word)) {
             return Integer.parseInt(word);
         }
@@ -140,5 +169,34 @@ public class Main {
         }
 
         return false;
+    }
+
+    private static void evaluateOperation(Stack<Integer> numbers, Stack<Character> operators) throws NumberFormatException {
+        char operator = operators.pop();
+        Integer operand2 = numbers.pop();
+        Integer operand1 = null;
+
+        if (!numbers.isEmpty()) {
+            operand1 = numbers.pop();
+        }
+
+        int result;
+        switch (operator) {
+            case '+':
+                result = operand1 + operand2;
+                break;
+            case '-':
+                result = Objects.requireNonNullElse(operand1, 0) - operand2;
+                break;
+            case '*':
+                result = operand1 * operand2;
+                break;
+            case '/':
+                result = operand1 / operand2;
+                break;
+            default:
+                throw new NumberFormatException();
+        }
+        numbers.push(result);
     }
 }
