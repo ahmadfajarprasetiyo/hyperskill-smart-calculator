@@ -318,6 +318,21 @@ files:
           }
       }
     learner_created: false
+  - name: src/calculator/InvalidIdentifier.java
+    visible: true
+    text: |
+      package calculator;
+      
+      public class InvalidIdentifier extends Exception {
+          public InvalidIdentifier () {
+              super("Invalid identifier");
+          }
+      }
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5323#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Thu, 08 Feb 2024 05:55:55 UTC"
 record: -1

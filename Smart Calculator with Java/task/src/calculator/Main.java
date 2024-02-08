@@ -1,12 +1,13 @@
 package calculator;
 
+import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
         final String EXIT_CMD = "/exit";
-        Map<String, Integer> mapVariable = new HashMap<>();
+        Map<String, BigInteger> mapVariable = new HashMap<>();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -31,8 +32,12 @@ public class Main {
             }
 
             try {
-                int sum = getSum(line, mapVariable);
-                System.out.println(sum);
+                BigInteger sum = getSum(line, mapVariable);
+                if (sum == null) {
+                    System.out.println("Unknown variable");
+                } else {
+                    System.out.println(sum);
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid expression");
             } catch (NullPointerException e) {
@@ -55,7 +60,7 @@ public class Main {
         }
     }
 
-    private static void assignment(String line, Map<String, Integer> mapVariable) {
+    private static void assignment(String line, Map<String, BigInteger> mapVariable) {
         String[] splitLine = line.split("=");
         if (splitLine.length != 2 | !isVariable(splitLine[0].trim())) {
             System.out.println("Invalid assignment");
@@ -64,11 +69,16 @@ public class Main {
         if (isInvalidVariable(var)) {
             System.out.println("Invalid identifier");
         }
-        int res = 0;
+        BigInteger res = BigInteger.ZERO;
         String val = splitLine[1].trim();
         try {
             res = getSum(val, mapVariable);
-            mapVariable.put(var, res);
+            if (res == null) {
+                System.out.println("Unknown variable");
+            } else {
+                mapVariable.put(var, res);
+            }
+
         } catch (NumberFormatException e) {
             System.out.println("Invalid expression");
         } catch (NullPointerException e) {
@@ -78,7 +88,7 @@ public class Main {
         }
     }
 
-    private static int getSum(String line, Map<String, Integer> mapVariable) throws NumberFormatException, InvalidIdentifier, NullPointerException {
+    private static BigInteger getSum(String line, Map<String, BigInteger> mapVariable) throws NumberFormatException, InvalidIdentifier, NullPointerException {
         if (line.contains("//") || line.contains("**")) {
             throw new NumberFormatException();
         }
@@ -95,7 +105,7 @@ public class Main {
 
 
         // Stack to hold numbers and operators
-        Stack<Integer> numbers = new Stack<>();
+        Stack<BigInteger> numbers = new Stack<>();
         Stack<Character> operators = new Stack<>();
 
         // Operator precedence map
@@ -145,9 +155,9 @@ public class Main {
         return numbers.pop();
     }
 
-    private static int convertOneWordToInt(String word, Map<String, Integer> mapVariable)  throws InvalidIdentifier, NullPointerException, IllegalArgumentException {
+    private static BigInteger convertOneWordToInt(String word, Map<String, BigInteger> mapVariable)  throws InvalidIdentifier, NullPointerException, IllegalArgumentException {
         if (!isVariable(word)) {
-            return Integer.parseInt(word);
+            return new BigInteger(word);
         }
 
         if (isInvalidVariable(word)) {
@@ -171,28 +181,32 @@ public class Main {
         return false;
     }
 
-    private static void evaluateOperation(Stack<Integer> numbers, Stack<Character> operators) throws NumberFormatException {
+    private static void evaluateOperation(Stack<BigInteger> numbers, Stack<Character> operators) throws NumberFormatException {
         char operator = operators.pop();
-        Integer operand2 = numbers.pop();
-        Integer operand1 = null;
+        BigInteger operand2 = numbers.pop();
+        BigInteger operand1 = null;
 
         if (!numbers.isEmpty()) {
             operand1 = numbers.pop();
         }
 
-        int result;
+        BigInteger result;
         switch (operator) {
             case '+':
-                result = operand1 + operand2;
+                result = operand1.add(operand2);
                 break;
             case '-':
-                result = Objects.requireNonNullElse(operand1, 0) - operand2;
+                if (operand1 == null) {
+                    result = operand2.negate();
+                    break;
+                }
+                result = operand1.subtract(operand2);
                 break;
             case '*':
-                result = operand1 * operand2;
+                result = operand1.multiply(operand2);
                 break;
             case '/':
-                result = operand1 / operand2;
+                result = operand1.divide(operand2);
                 break;
             default:
                 throw new NumberFormatException();
